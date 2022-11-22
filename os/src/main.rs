@@ -9,7 +9,10 @@ mod lang_items;
 mod sbi;
 mod syscall;
 mod trap;
-mod batch;
+mod loader;
+mod config;
+mod task;
+//mod batch;
 
 use core::arch::global_asm;
 
@@ -29,6 +32,9 @@ pub fn rust_main() -> ! {
     clear_bss();
     println!("[Kernel] Hello, world!");
     trap::init();
-    batch::init();
-    batch::run_next_app();
+    loader::load_apps();
+    task::run_first_task();
+    //batch::init();
+    //batch::run_next_app();
+    panic!("Unreachable in rust_main!");
 }
