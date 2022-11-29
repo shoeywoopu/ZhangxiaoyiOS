@@ -1,12 +1,15 @@
 const SYSCALL_WRITE: usize = 64;
 const SYSCALL_EXIT: usize = 93;
 const SYSCALL_YIELD: usize = 124;
+const SYSCALL_GET_TIME: usize = 169;
 
 mod fs;
 mod process;
 
 use fs::*;
 use process::*;
+
+SYSCALL_GET_TIME => sys_get_time(),
 
 pub fn syscall(syscall_id: usize, args: [usize; 3]) -> isize {
     match syscall_id {
