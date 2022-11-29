@@ -1,7 +1,8 @@
 #![no_std]
 #![no_main]
-
 #![feature(panic_info_message)]
+
+use core::arch::global_asm;
 
 #[macro_use]
 mod console;
@@ -12,9 +13,7 @@ mod trap;
 mod loader;
 mod config;
 mod task;
-//mod batch;
-
-use core::arch::global_asm;
+mod timer;
 
 global_asm!(include_str!("entry.asm"));
 global_asm!(include_str!("link_app.S"));
@@ -33,8 +32,8 @@ pub fn rust_main() -> ! {
     println!("[Kernel] Hello, world!");
     trap::init();
     loader::load_apps();
+    trap::enable_timer_interrupt();
+    timer::set_next_trigger();
     task::run_first_task();
-    //batch::init();
-    //batch::run_next_app();
     panic!("Unreachable in rust_main!");
 }
