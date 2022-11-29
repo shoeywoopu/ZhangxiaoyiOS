@@ -21,7 +21,7 @@ fn clear_bss() {
                         unsafe { (addr as *mut u8).write_volatile(0); }
                             });
 }
-
+pub fn get_time() -> isize { sys_get_time() }
 #[no_mangle]
 #[link_section = ".text.entry"]
 pub extern "C" fn _start() -> ! {
