@@ -6,6 +6,7 @@ use core::arch::global_asm;
 extern crate alloc;
 
 #[macro_use]
+extern crate bitflags;
 mod console;
 mod lang_items;
 mod sbi;
