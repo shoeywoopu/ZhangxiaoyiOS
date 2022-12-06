@@ -7,6 +7,8 @@ extern crate alloc;
 
 #[macro_use]
 extern crate bitflags;
+
+#[macro_use]
 mod console;
 mod lang_items;
 mod sbi;
@@ -17,6 +19,7 @@ mod config;
 mod task;
 mod timer;
 mod mm;
+mod sync;
 
 global_asm!(include_str!("entry.asm"));
 global_asm!(include_str!("link_app.S"));
