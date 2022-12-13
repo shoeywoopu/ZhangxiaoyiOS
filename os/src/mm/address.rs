@@ -76,8 +76,6 @@ impl From<PhysPageNum> for PhysAddr {
     fn from(v: PhysPageNum) -> Self { Self(v.0 << PAGE_SIZE_BITS) }
 }
 
-
-
 impl Debug for VirtAddr {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         f.write_fmt(format_args!("VA:{:#x}", self.0))
@@ -98,7 +96,6 @@ impl Debug for PhysPageNum {
         f.write_fmt(format_args!("PPN:{:#x}", self.0))
     }
 }
-
 
 impl VirtPageNum {
     pub fn indexes(&self) -> [usize; 3] {
