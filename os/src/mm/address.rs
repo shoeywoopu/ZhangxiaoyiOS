@@ -61,6 +61,11 @@ impl From<VirtPageNum> for VirtAddr {
     fn from(v: VirtPageNum) -> Self { Self(v.0 << PAGE_SIZE_BITS) }
 }
 impl PhysAddr {
+    pub fn get_mut<T>(&self) -> &'static mut T {
+        unsafe {
+            (self.0 as *mut T).as_mut().unwrap()
+        }
+    }
     pub fn floor(&self) -> PhysPageNum { PhysPageNum(self.0 / PAGE_SIZE) }
     pub fn ceil(&self) -> PhysPageNum { PhysPageNum((self.0 - 1 + PAGE_SIZE) / PAGE_SIZE) }
     pub fn page_offset(&self) -> usize { self.0 & (PAGE_SIZE - 1) }
