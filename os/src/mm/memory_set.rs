@@ -42,6 +42,9 @@ pub struct MemorySet {
 }
 
 impl MemorySet {
+    pub fn recycle_data_pages(&mut self) {
+        self.areas.clear();
+    }
     pub fn from_existed_user(user_space: &MemorySet) -> MemorySet {
         let mut memory_set = Self::new_bare();
         // map trampoline
