@@ -1,26 +1,30 @@
 mod context;
 mod switch;
 mod task;
+mod manager;
 
-use crate::loader::{get_num_app, get_app_data};
+//use crate::loader::{get_num_app, get_app_data};
 use crate::trap::TrapContext;
 use crate::sync::UPSafeCell;
 use lazy_static::*;
 use switch::__switch;
 use task::{TaskControlBlock, TaskStatus};
 use alloc::vec::Vec;
+use crate::loader::get_app_data_by_name;
+use manager::add_task;
 
 pub use context::TaskContext;
 
-pub struct TaskManager {
-    num_app: usize,
-    inner: UPSafeCell<TaskManagerInner>,
+lazy_static! {
+    pub static ref INITPROC: Arc<TaskControlBlock> = Arc::new(
+        TaskControlBlock::new(get_app_data_by_name("initproc").unwrap())
+    );
 }
 
-struct TaskManagerInner {
-    tasks: Vec<TaskControlBlock>,
-    current_task: usize,
+pub fn add_initproc() {
+    add_task(INITPROC.clone());
 }
+
 
 unsafe impl Sync for TaskManager {}
 
